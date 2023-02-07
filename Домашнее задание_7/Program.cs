@@ -22,11 +22,8 @@ int ReadInt(string text)
 
 int[,] CreateMatrix(int row, int column)
 {
-    // row = ReadInt("Введите начало промежутка, в котором будут задаваться числа в массиве: ");
-    // column = ReadInt("Введите конец промежутка, в котором будут задаваться числа в массиве: ");
     Random rnd = new Random();
     int[,] matr = new int[row, column];
-
     for (int i = 0; i < matr.GetLength(0); i++)
     {
         for (int j = 0; j < matr.GetLength(1); j++)
@@ -34,7 +31,6 @@ int[,] CreateMatrix(int row, int column)
             matr[i, j] = rnd.Next(-10, 10);
 
         }
-
     }
     return matr;
 }
@@ -87,3 +83,31 @@ ChangeMatrix(matrix);
 
 //В прямоугольной матрице найти строку с наименьшей суммой элементов.
 
+int[] FindRowSum(int[,] matrix)
+{
+    int[] sum = new int[matrix.GetLength(0)];
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++) sum[i] = sum[i] + matrix[i, j];
+    }
+    return sum;
+}
+
+int[] sum = FindRowSum(matrix);
+Console.WriteLine(string.Join(", ", sum));
+Console.WriteLine();
+void FindMin(int[] matrix)
+{
+    int min = matrix[0];
+    int pos = 0;
+    for (int i = 1; i< matrix.Length; i ++)
+    {
+        if (matrix[i] < min) 
+        {
+            min = matrix[i];
+            pos = i;
+        }
+    }
+    Console.WriteLine($"Строка с наименьшей суммой {pos + 1}, ее сумма = {min}.");
+}
+FindMin(sum);
